@@ -842,3 +842,172 @@ DateTime proximaSemana = agora + intervalo;
 Console.WriteLine($"Hoje: {agora}");
 Console.WriteLine($"Próxima semana: {proximaSemana}");
 ```
+
+## 120. Trabalhando com Moedas (Decimal)
+
+- Use `decimal` para valores monetários (precisão alta, evita erros de arredondamento):
+
+```csharp
+decimal preco = 19.99m; // Sufixo 'm' obrigatório
+decimal taxa = 0.05m;
+decimal total = preco * (1 + taxa); // 20.9899m
+
+Console.WriteLine($"Preço: {preco:C}"); // Formato moeda
+Console.WriteLine($"Total: {total:C}");
+```
+
+- Operações com moedas:
+
+```csharp
+decimal valor1 = 100.50m;
+decimal valor2 = 50.25m;
+
+decimal soma = valor1 + valor2; // 150.75m
+decimal diferenca = valor1 - valor2; // 50.25m
+decimal produto = valor1 * 2; // 201.00m
+decimal quociente = valor1 / 2; // 50.25m
+
+Console.WriteLine($"Soma: {soma:C}");
+Console.WriteLine($"Diferença: {diferenca:C}");
+```
+
+- Arredondamento monetário:
+
+```csharp
+decimal valor = 19.995m;
+decimal arredondado = Math.Round(valor, 2); // 20.00m
+decimal truncado = Math.Truncate(valor); // 19m
+
+Console.WriteLine($"Original: {valor}");
+Console.WriteLine($"Arredondado: {arredondado}");
+Console.WriteLine($"Truncado: {truncado}");
+```
+
+- Formatação específica para moedas:
+
+```csharp
+decimal valor = 1234.56m;
+CultureInfo culturaBR = new CultureInfo("pt-BR");
+CultureInfo culturaUS = new CultureInfo("en-US");
+
+Console.WriteLine(valor.ToString("C", culturaBR)); // R$ 1.234,56
+Console.WriteLine(valor.ToString("C", culturaUS)); // $1,234.56
+Console.WriteLine(valor.ToString("C2", culturaBR)); // R$ 1.234,56 (2 casas decimais)
+```
+
+- Cálculos financeiros comuns:
+
+```csharp
+decimal capital = 1000m;
+decimal taxaJuros = 0.05m; // 5%
+int meses = 12;
+
+decimal juros = capital * taxaJuros * meses / 12; // Juros simples
+decimal montante = capital + juros;
+
+Console.WriteLine($"Capital: {capital:C}");
+Console.WriteLine($"Juros: {juros:C}");
+Console.WriteLine($"Montante: {montante:C}");
+```
+
+## 121. Classe Math (Operações Matemáticas)
+
+- `Math.PI` e `Math.E` (constantes):
+
+```csharp
+Console.WriteLine($"PI: {Math.PI}"); // 3.141592653589793
+Console.WriteLine($"E: {Math.E}"); // 2.718281828459045
+```
+
+- Funções trigonométricas:
+
+```csharp
+double angulo = 45; // graus
+double radianos = angulo * Math.PI / 180; // converter para radianos
+
+double seno = Math.Sin(radianos);
+double cosseno = Math.Cos(radianos);
+double tangente = Math.Tan(radianos);
+
+Console.WriteLine($"Seno de 45°: {seno:F4}"); // 0.7071
+Console.WriteLine($"Cosseno de 45°: {cosseno:F4}"); // 0.7071
+Console.WriteLine($"Tangente de 45°: {tangente:F4}"); // 1.0000
+```
+
+- Funções inversas:
+
+```csharp
+double valor = 0.5;
+double arcoSeno = Math.Asin(valor) * 180 / Math.PI; // graus
+double arcoCosseno = Math.Acos(valor) * 180 / Math.PI;
+double arcoTangente = Math.Atan(valor) * 180 / Math.PI;
+
+Console.WriteLine($"Arco seno de 0.5: {arcoSeno:F2}°");
+Console.WriteLine($"Arco cosseno de 0.5: {arcoCosseno:F2}°");
+Console.WriteLine($"Arco tangente de 0.5: {arcoTangente:F2}°");
+```
+
+- Potências e raízes:
+
+```csharp
+double baseNum = 2;
+double expoente = 3;
+double potencia = Math.Pow(baseNum, expoente); // 2^3 = 8
+
+double raizQuadrada = Math.Sqrt(16); // 4
+double raizCubica = Math.Pow(27, 1.0/3); // 3
+
+Console.WriteLine($"2^3: {potencia}");
+Console.WriteLine($"Raiz quadrada de 16: {raizQuadrada}");
+Console.WriteLine($"Raiz cúbica de 27: {raizCubica}");
+```
+
+- Logaritmos:
+
+```csharp
+double numero = 100;
+double logNatural = Math.Log(numero); // ln(100)
+double log10 = Math.Log10(numero); // log10(100)
+double logBase2 = Math.Log(numero, 2); // log2(100)
+
+Console.WriteLine($"ln(100): {logNatural:F4}");
+Console.WriteLine($"log10(100): {log10:F4}");
+Console.WriteLine($"log2(100): {logBase2:F4}");
+```
+
+- Arredondamento e valor absoluto:
+
+```csharp
+double valor = -3.7;
+double absoluto = Math.Abs(valor); // 3.7
+
+double arredondado = Math.Round(3.14159, 2); // 3.14
+double arredondadoCima = Math.Ceiling(3.1); // 4
+double arredondadoBaixo = Math.Floor(3.9); // 3
+
+Console.WriteLine($"Absoluto de -3.7: {absoluto}");
+Console.WriteLine($"3.14159 arredondado: {arredondado}");
+Console.WriteLine($"Ceiling de 3.1: {arredondadoCima}");
+Console.WriteLine($"Floor de 3.9: {arredondadoBaixo}");
+```
+
+- Máximo, mínimo e sinal:
+
+```csharp
+double a = 10, b = 20;
+double maximo = Math.Max(a, b); // 20
+double minimo = Math.Min(a, b); // 10
+int sinal = Math.Sign(-5); // -1 (negativo), 0 (zero), 1 (positivo)
+
+Console.WriteLine($"Máximo: {maximo}");
+Console.WriteLine($"Mínimo: {minimo}");
+Console.WriteLine($"Sinal de -5: {sinal}");
+```
+
+- Números especiais:
+
+```csharp
+Console.WriteLine($"É NaN? {double.IsNaN(Math.Sqrt(-1))}"); // true
+Console.WriteLine($"É infinito? {double.IsInfinity(double.PositiveInfinity)}"); // true
+Console.WriteLine($"É finito? {double.IsFinite(100)}"); // true
+```
