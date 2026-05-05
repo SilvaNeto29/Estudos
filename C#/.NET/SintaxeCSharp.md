@@ -1011,3 +1011,186 @@ Console.WriteLine($"É NaN? {double.IsNaN(Math.Sqrt(-1))}"); // true
 Console.WriteLine($"É infinito? {double.IsInfinity(double.PositiveInfinity)}"); // true
 Console.WriteLine($"É finito? {double.IsFinite(100)}"); // true
 ```
+
+## 122. Arrays
+
+- Declaração de array (tipo de referência - requer `new`):
+
+```csharp
+int[] numeros = new int[5]; // Array de 5 inteiros inicializados com 0
+string[] nomes = new string[3]; // Array de 3 strings
+int[] valores = { 10, 20, 30 }; // Array com inicializador
+```
+
+- Acessando elementos do array:
+
+```csharp
+int[] numeros = { 10, 20, 30, 40, 50 };
+Console.WriteLine(numeros[0]); // 10
+Console.WriteLine(numeros[4]); // 50
+numeros[2] = 100; // Alterando valor
+
+Console.WriteLine($"Tamanho: {numeros.Length}");
+```
+
+- Iterando arrays:
+
+```csharp
+int[] valores = { 1, 2, 3, 4, 5 };
+
+foreach (var item in valores)
+    Console.WriteLine(item);
+
+for (int i = 0; i < valores.Length; i++)
+    Console.WriteLine($"Índice {i}: {valores[i]}");
+```
+
+- Array multidimensional:
+
+```csharp
+int[,] matriz = new int[3, 3]; // Matriz 3x3
+int[,] matriz2 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+
+Console.WriteLine(matriz2[0, 0]); // 1
+Console.WriteLine(matriz2[1, 1]); // 5
+Console.WriteLine(matriz2[2, 2]); // 9
+```
+
+- Array irregular (jagged array):
+
+```csharp
+int[][] jagged = new int[3][]; // 3 linhas
+jagged[0] = new int[2]; // Primeira linha com 2 elementos
+jagged[1] = new int[3]; // Segunda linha com 3 elementos
+jagged[2] = new int[1]; // Terceira linha com 1 elemento
+
+jagged[0][0] = 10;
+Console.WriteLine(jagged[0][0]); // 10
+```
+
+- Métodos úteis de array:
+
+```csharp
+int[] numeros = { 5, 2, 8, 1, 9 };
+
+Array.Sort(numeros); // Ordena: [1, 2, 5, 8, 9]
+Array.Reverse(numeros); // Inverte: [9, 8, 5, 2, 1]
+
+int indice = Array.IndexOf(numeros, 5); // Retorna índice de 5
+bool contem = numeros.Contains(5); // true
+
+string resultado = string.Join(", ", numeros); // "9, 8, 5, 2, 1"
+```
+
+## 123. Dictionary (Chave-Valor)
+
+- **Diferença importante**: Um array tradicional não suporta chave-valor. Para isso use `Dictionary<TKey, TValue>`:
+
+```csharp
+// Dictionary com string como chave e int como valor
+Dictionary<string, int> idades = new Dictionary<string, int>();
+idades.Add("João", 25);
+idades.Add("Maria", 30);
+idades["Pedro"] = 28; // Outra forma de adicionar
+
+Console.WriteLine(idades["João"]); // 25
+
+// Inicializador de coleção
+Dictionary<string, int> scores = new Dictionary<string, int>
+{
+    { "Ana", 100 },
+    { "Bruno", 85 },
+    { "Carlos", 92 }
+};
+```
+
+- Operações com Dictionary:
+
+```csharp
+Dictionary<string, string> capitais = new Dictionary<string, string>
+{
+    { "Brasil", "Brasília" },
+    { "USA", "Washington" },
+    { "Japão", "Tóquio" }
+};
+
+// Verificar se chave existe
+if (capitais.ContainsKey("Brasil"))
+    Console.WriteLine("Chave encontrada");
+
+// Obter valor com segurança
+if (capitais.TryGetValue("Brasil", out string valor))
+    Console.WriteLine($"Capital: {valor}");
+
+// Remover
+capitais.Remove("USA");
+
+// Contar elementos
+Console.WriteLine($"Total: {capitais.Count}");
+
+// Limpar tudo
+capitais.Clear();
+```
+
+- Iterando Dictionary:
+
+```csharp
+Dictionary<string, int> precos = new Dictionary<string, int>
+{
+    { "Maçã", 5 },
+    { "Banana", 3 },
+    { "Laranja", 4 }
+};
+
+// Iterando chaves e valores
+foreach (var item in precos)
+    Console.WriteLine($"{item.Key}: R$ {item.Value}");
+
+// Apenas chaves
+foreach (string chave in precos.Keys)
+    Console.WriteLine($"Chave: {chave}");
+
+// Apenas valores
+foreach (int valor in precos.Values)
+    Console.WriteLine($"Valor: {valor}");
+```
+
+- Dictionary com diferentes tipos:
+
+```csharp
+// String → String
+Dictionary<string, string> contatos = new Dictionary<string, string>
+{
+    { "João", "joao@email.com" },
+    { "Maria", "maria@email.com" }
+};
+
+// Int → String
+Dictionary<int, string> diasSemana = new Dictionary<int, string>
+{
+    { 1, "Segunda" },
+    { 2, "Terça" },
+    { 3, "Quarta" }
+};
+
+// String → List
+Dictionary<string, List<int>> notas = new Dictionary<string, List<int>>
+{
+    { "Ana", new List<int> { 10, 9, 8 } },
+    { "Bruno", new List<int> { 7, 8, 9 } }
+};
+```
+
+## 124. KeyValuePair (Pares Chave-Valor em Array)
+
+- Se precisar de um array com pares chave-valor, use `KeyValuePair<TKey, TValue>`:
+
+```csharp
+KeyValuePair<string, int>[] pares = new KeyValuePair<string, int>[3];
+pares[0] = new KeyValuePair<string, int>("Item1", 10);
+pares[1] = new KeyValuePair<string, int>("Item2", 20);
+pares[2] = new KeyValuePair<string, int>("Item3", 30);
+
+foreach (var par in pares)
+    Console.WriteLine($"{par.Key}: {par.Value}");
+```
